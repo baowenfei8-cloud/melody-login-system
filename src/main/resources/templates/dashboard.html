@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'欢迎回来 · ' + (${user.nickname} ?: ${user.username}) + ' — MelodyLogin'">首页</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="music-particles"></div>
+    <div class="sound-waves"></div>
+
+    <div class="dashboard-container">
+        <nav class="dash-nav">
+            <div class="nav-brand">
+                <div class="mini-vinyl"></div>
+                <span>MelodyLogin</span>
+            </div>
+            <div class="nav-links">
+                <a th:href="@{/dashboard}" class="nav-link active">🏠 首页</a>
+                <a th:href="@{/profile}" class="nav-link">👤 个人中心</a>
+                <a th:href="@{/logout}" class="nav-link logout">🚪 退出</a>
+            </div>
+        </nav>
+
+        <main style="max-width:1000px;margin:0 auto;padding:40px 20px;">
+            <div style="margin-bottom:40px;">
+                <h1 style="font-family:var(--font-display);font-size:28px;letter-spacing:2px;margin-bottom:8px;">
+                    👋 欢迎回来，<span style="color:var(--gold);" th:text="${user.nickname} ?: ${user.username}">用户</span>
+                </h1>
+                <p style="color:var(--text-sec);font-size:14px;">用音乐开启美好的一天</p>
+            </div>
+
+            <div class="dash-grid">
+                <div class="dash-card"><div class="ci">🎵</div><h3>播放列表</h3><div class="cv" data-num="28">0</div><div class="cd">你创建的音乐列表</div></div>
+                <div class="dash-card"><div class="ci">❤️</div><h3>收藏歌曲</h3><div class="cv" data-num="156">0</div><div class="cd">你喜欢的音乐</div></div>
+                <div class="dash-card"><div class="ci">⏱️</div><h3>收听时长</h3><div class="cv" data-num="847">0</div><div class="cd">累计分钟数</div></div>
+                <div class="dash-card"><div class="ci">🏆</div><h3>成就点数</h3><div class="cv" data-num="3200">0</div><div class="cd">你的音乐成就</div></div>
+            </div>
+
+            <div class="recent-box">
+                <h3 style="font-size:14px;color:var(--text-sec);letter-spacing:1px;margin-bottom:16px;">📋 最近活动</h3>
+                <ul style="list-style:none;">
+                    <li class="act-item"><span class="act-icon">▶️</span><span>收听了歌曲《起风了》</span><span class="act-time">2分钟前</span></li>
+                    <li class="act-item"><span class="act-icon">❤️</span><span>收藏了歌单《深夜钢琴曲》</span><span class="act-time">15分钟前</span></li>
+                    <li class="act-item"><span class="act-icon">➕</span><span>创建了新歌单「学习专用 BGM」</span><span class="act-time">1小时前</span></li>
+                    <li class="act-item"><span class="act-icon">👤</span><span>更新了个人资料</span><span class="act-time">3小时前</span></li>
+                </ul>
+            </div>
+        </main>
+    </div>
+    <script th:src="@{/js/app.js}"></script>
+</body>
+</html>
