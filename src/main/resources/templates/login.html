@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 — MelodyLogin</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>♪</text></svg>">
+</head>
+<body>
+    <div class="music-particles"></div>
+    <div class="sound-waves"></div>
+
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="vinyl-logo">
+                    <div class="vinyl-disc"><div class="vinyl-label">♪</div></div>
+                </div>
+                <h1>欢迎回来</h1>
+                <p class="subtitle">让旋律连接每一个灵魂</p>
+            </div>
+
+            <div th:if="${msg != null}" class="msg-box" th:classappend="${#strings.contains(msg,'成功')} ? 'success' : 'error'">
+                <span th:text="${msg}">消息</span>
+            </div>
+
+            <form th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label>用户名</label>
+                    <div class="input-wrap">
+                        <span class="icon">👤</span>
+                        <input type="text" name="username" placeholder="请输入用户名"
+                               th:value="${savedUsername}" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <div class="input-wrap">
+                        <span class="icon">🔒</span>
+                        <input type="password" name="password" placeholder="请输入密码" required>
+                        <button type="button" class="toggle-pwd" onclick="togglePwd(this)">👁️</button>
+                    </div>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;font-size:13px;">
+                    <label style="color:var(--text-sec);display:flex;align-items:center;gap:6px;cursor:pointer;">
+                        <input type="checkbox" name="rememberMe" value="true"
+                               th:checked="${remembered}"
+                               style="accent-color:var(--gold);width:16px;height:16px;">
+                        记住此账号
+                    </label>
+                    <a th:href="@{/forgot}" style="color:var(--gold);text-decoration:none;">忘记密码?</a>
+                </div>
+                <button type="submit" class="btn-primary">✦ 进入音乐世界</button>
+            </form>
+
+            <div class="auth-footer">
+                <p>还没有账号? <a th:href="@{/register}">立即注册</a></p>
+                <p style="margin-top:8px;font-size:12px;">
+                    <a th:href="@{/}" style="color:var(--text-dim);text-decoration:none;">← 返回首页</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/js/app.js}"></script>
+</body>
+</html>
