@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MelodyLogin — 用音乐连接世界</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>♪</text></svg>">
+</head>
+<body>
+    <div class="music-particles"></div>
+    <div class="sound-waves"></div>
+
+    <!-- 顶部导航栏 -->
+    <nav class="landing-nav">
+        <div class="nav-brand">
+            <div class="mini-vinyl"></div>
+            <span>MelodyLogin</span>
+        </div>
+        <div class="nav-links">
+            <a th:href="@{/login}" class="landing-btn outline">登录</a>
+            <a th:href="@{/register}" class="landing-btn solid">注册</a>
+        </div>
+    </nav>
+
+    <!-- 主内容区 -->
+    <main class="landing-hero">
+        <div class="landing-content">
+            <div class="hero-badge">✦ 全新音乐体验</div>
+            <h1 class="hero-title">
+                让<span class="gold">旋律</span><br>
+                连接每一个<span class="gold">灵魂</span>
+            </h1>
+            <p class="hero-desc">
+                沉浸于黑胶的温暖质感，感受音符在黑暗中流淌。<br>
+                每一次聆听，都是一次与音乐的深度邂逅。
+            </p>
+            <div class="hero-actions">
+                <a th:href="@{/register}" class="landing-btn solid large">✦ 立即加入</a>
+                <a th:href="@{/login}" class="landing-btn outline large">已有账号? 登录</a>
+            </div>
+            <div class="hero-features">
+                <div class="feature-item">
+                    <span class="fi-icon">🎵</span>
+                    <span>百万曲库</span>
+                </div>
+                <div class="feature-item">
+                    <span class="fi-icon">🎧</span>
+                    <span>无损音质</span>
+                </div>
+                <div class="feature-item">
+                    <span class="fi-icon">💿</span>
+                    <span>黑胶体验</span>
+                </div>
+                <div class="feature-item">
+                    <span class="fi-icon">🌙</span>
+                    <span>夜间模式</span>
+                </div>
+            </div>
+        </div>
+        <div class="landing-visual">
+            <div class="hero-vinyl">
+                <div class="hv-disc"></div>
+            </div>
+            <div class="stats-row">
+                <div class="stat-item"><span class="si-num">12,560+</span><span class="si-label">精选歌单</span></div>
+                <div class="stat-item"><span class="si-num">8,930+</span><span class="si-label">注册用户</span></div>
+                <div class="stat-item"><span class="si-num">42</span><span class="si-label">音乐类型</span></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="landing-footer">
+        <p>© 2026 MelodyLogin · 用音乐连接每一个灵魂</p>
+    </footer>
+
+    <script th:src="@{/js/app.js}"></script>
+</body>
+</html>
