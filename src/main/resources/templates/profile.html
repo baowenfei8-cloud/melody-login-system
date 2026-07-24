@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人中心 — MelodyLogin</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="music-particles"></div>
+    <div class="sound-waves"></div>
+
+    <div class="dashboard-container">
+        <nav class="dash-nav">
+            <div class="nav-brand">
+                <div class="mini-vinyl"></div>
+                <span>MelodyLogin</span>
+            </div>
+            <div class="nav-links">
+                <a th:href="@{/dashboard}" class="nav-link">🏠 首页</a>
+                <a th:href="@{/profile}" class="nav-link active">👤 个人中心</a>
+                <a th:href="@{/logout}" class="nav-link logout">🚪 退出</a>
+            </div>
+        </nav>
+
+        <div class="profile-box">
+            <div class="avatar">
+                <div class="avatar-circle">
+                    <span th:text="${#strings.substring(user.nickname ?: user.username, 0, 1)}">U</span>
+                </div>
+                <h2 th:text="${user.nickname} ?: ${user.username}">用户</h2>
+                <p style="color:var(--text-sec);font-size:13px;" th:text="'@' + ${user.username}">@username</p>
+            </div>
+
+            <form id="profileForm" style="margin-top:28px;">
+                <div class="form-group">
+                    <label>用户名</label>
+                    <div class="input-wrap">
+                        <input type="text" th:value="${user.username}" disabled style="opacity:0.5;cursor:not-allowed;">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>昵称</label>
+                    <div class="input-wrap">
+                        <input type="text" id="nickname" name="nickname" th:value="${user.nickname}" placeholder="给自己取个昵称">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>邮箱</label>
+                    <div class="input-wrap">
+                        <input type="email" id="email" name="email" th:value="${user.email}" placeholder="用于找回密码">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>手机号</label>
+                    <div class="input-wrap">
+                        <input type="text" id="phone" name="phone" th:value="${user.phone}" placeholder="选填手机号">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>注册时间</label>
+                    <div class="input-wrap">
+                        <input type="text" th:value="${#temporals.format(user.createdAt, 'yyyy-MM-dd HH:mm')}" disabled style="opacity:0.5;cursor:not-allowed;">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary" id="saveBtn">✎ 保存修改</button>
+            </form>
+
+            <div class="pwd-section">
+                <button id="togglePwdBtn" class="link-btn">修改密码</button>
+                <div id="pwdForm" style="display:none;margin-top:16px;">
+                    <form id="changePwdForm">
+                        <div class="form-group">
+                            <label>原密码</label>
+                            <div class="input-wrap">
+                                <input type="password" id="oldPwd" placeholder="输入原密码" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>新密码</label>
+                            <div class="input-wrap">
+                                <input type="password" id="newPwd" placeholder="至少6位新密码" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>确认新密码</label>
+                            <div class="input-wrap">
+                                <input type="password" id="confirmPwd" placeholder="再次输入新密码" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary">✓ 更新密码</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/js/app.js}"></script>
+</body>
+</html>
