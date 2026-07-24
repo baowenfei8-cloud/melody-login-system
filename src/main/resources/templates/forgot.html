@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>找回密码 — MelodyLogin</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>♬</text></svg>">
+</head>
+<body>
+    <div class="music-particles"></div>
+    <div class="sound-waves"></div>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="vinyl-logo" style="width:70px;height:70px;">
+                    <div class="vinyl-disc"><div class="vinyl-label" style="width:28px;height:28px;font-size:12px;">♬</div></div>
+                </div>
+                <h1 style="font-size:20px;">找回密码</h1>
+                <p class="subtitle">别担心 · 密码发到你的邮箱</p>
+            </div>
+
+            <div th:if="${msg != null}" class="msg-box" th:classappend="${#strings.contains(msg,'邮箱') or #strings.contains(msg,'发送')} ? 'success' : 'error'">
+                <span th:text="${msg}">消息</span>
+            </div>
+
+            <form th:action="@{/forgot}" method="post">
+                <div class="form-group">
+                    <label>用户名</label>
+                    <div class="input-wrap">
+                        <span class="icon">👤</span>
+                        <input type="text" name="username" placeholder="请输入你的用户名" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>注册邮箱</label>
+                    <div class="input-wrap">
+                        <span class="icon">📧</span>
+                        <input type="email" name="email" placeholder="请输入注册时使用的邮箱" required>
+                    </div>
+                </div>
+                <div style="padding:12px 14px;background:rgba(232,184,48,0.04);border:1px solid rgba(232,184,48,0.12);border-radius:10px;margin-bottom:20px;font-size:12px;color:var(--text-sec);line-height:1.6;">
+                    📧 验证通过后，密码将发送到您的注册邮箱<br>
+                    请检查收件箱（包括垃圾邮件）
+                </div>
+                <button type="submit" class="btn-primary">📧 发送密码到邮箱</button>
+            </form>
+            <div class="auth-footer">
+                <p>想起密码了? <a th:href="@{/login}">返回登录</a></p>
+                <p style="margin-top:8px;font-size:11px;color:var(--text-dim);">
+                    ⚙️ 项目未配置邮箱? 
+                    <a href="#emailGuide" onclick="showEmailGuide()" style="color:var(--text-dim);">点此查看配置教程</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 邮箱配置弹窗 -->
+    <div id="emailGuideOverlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:9999;overflow-y:auto;padding:20px;" onclick="if(event.target===this)hideEmailGuide()">
+        <div style="max-width:600px;margin:40px auto;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;position:relative;">
+            <button onclick="hideEmailGuide()" style="position:absolute;top:12px;right:12px;background:none;border:none;color:var(--text);font-size:20px;cursor:pointer;">✕</button>
+            <h2 style="font-family:var(--font-display);font-size:18px;letter-spacing:1px;color:var(--gold);margin-bottom:16px;">📧 配置邮箱发送</h2>
+            <p style="font-size:13px;color:var(--text-sec);margin-bottom:16px;line-height:1.8;">
+                修改项目中的 <code style="background:rgba(232,184,48,0.1);padding:2px 6px;border-radius:4px;font-size:12px;">application.properties</code> 文件：
+            </p>
+
+            <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:16px;margin-bottom:16px;font-size:12px;font-family:monospace;line-height:1.8;color:var(--text-sec);">
+                <div style="color:var(--text-dim);margin-bottom:8px;">📌 以QQ邮箱为例：</div>
+                <div style="color:var(--success);"># 去掉下面4行的#号注释</div>
+                <div>spring.mail.host=smtp.qq.com</div>
+                <div>spring.mail.port=587</div>
+                <div style="color:var(--gold);">spring.mail.username=<span style="color:#fff;">你的QQ号@qq.com</span></div>
+                <div style="color:var(--gold);">spring.mail.password=<span style="color:#fff;">你的16位授权码</span></div>
+                <div style="color:var(--success);margin-top:8px;"># 取消下面3行的注释</div>
+                <div>spring.mail.properties.mail.smtp.auth=true</div>
+                <div>spring.mail.properties.mail.smtp.starttls.enable=true</div>
+            </div>
+
+            <div style="margin-bottom:16px;">
+                <div style="font-size:13px;color:var(--text);font-weight:500;margin-bottom:8px;">获取授权码步骤：</div>
+                <ol style="font-size:12px;color:var(--text-sec);line-height:2;padding-left:20px;">
+                    <li>登录 <a href="https://mail.qq.com" target="_blank" style="color:var(--gold);">QQ邮箱</a> → 设置 → 账户</li>
+                    <li>找到 <strong style="color:var(--text);">POP3/IMAP/SMTP服务</strong> → 点击开启</li>
+                    <li>按提示发送短信 → 获取 <strong style="color:var(--gold);">16位授权码</strong></li>
+                    <li>将授权码填入 <code style="background:rgba(232,184,48,0.1);padding:1px 4px;border-radius:3px;">spring.mail.password</code></li>
+                    <li>保存文件 → <strong style="color:var(--success);">重启项目</strong></li>
+                </ol>
+            </div>
+
+            <div style="background:rgba(79,195,247,0.06);border:1px solid rgba(79,195,247,0.15);border-radius:10px;padding:12px;font-size:12px;color:var(--text-sec);line-height:1.8;">
+                🔄 也支持 163邮箱、Gmail、Outlook 等任意邮箱<br>
+                详见 application.properties 中的注释说明
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/js/app.js}"></script>
+    <script>
+        function showEmailGuide() {
+            document.getElementById('emailGuideOverlay').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        function hideEmailGuide() {
+            document.getElementById('emailGuideOverlay').style.display = 'none';
+            document.body.style.overflow = '';
+        }
+    </script>
+</body>
+</html>
